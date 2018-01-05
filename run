@@ -1,0 +1,4 @@
+#!/bin/sh
+dir=$(dirname $(readlink -f "$0"))
+$dir/dist/build/battery/battery &
+$dir/simple-volume-monitor/simple-volume-monitor | $dir/dist/build/simple-volume-display/simple-volume-display

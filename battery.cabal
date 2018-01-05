@@ -1,21 +1,52 @@
 name:                battery
 version:             0.1.0.0
 license:             BSD3
-license-file:        LICENSE
 author:              Daniel Schmitz
 maintainer:          daniel.schmitz@gmx.info
 copyright:           2017 Daniel Schmitz
-category:            App
 build-type:          Simple
 cabal-version:       >=1.10
 
+executable brightness
+  hs-source-dirs:      src
+  main-is:             Brightness.hs
+  other-modules:       FileTools, Utils
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+
+  build-depends:       base,
+                       strict,
+                       glib,
+                       gtk3,
+                       cairo,
+                       pango,
+                       bytestring
+  default-language:    Haskell2010
+
 executable battery
   hs-source-dirs:      src
-  main-is:             Main.hs
+  main-is:             Battery.hs
+  other-modules:       FileTools, Utils
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base,
+                       strict,
                        glib,
-                       gtk3 >= 0.14.7,
-                       cairo >= 0.13.4.1,
-                       pango >= 0.13.4.0
+                       gtk3,
+                       cairo,
+                       pango,
+                       bytestring
+  default-language:    Haskell2010
+
+executable simple-volume-display
+  hs-source-dirs:      src
+  main-is:             SimpleVolumeDisplay.hs
+  other-modules:       FileTools, Utils
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base,
+                       strict,
+                       glib,
+                       gtk3,
+                       cairo,
+                       pango,
+                       bytestring,
+                       process
   default-language:    Haskell2010
