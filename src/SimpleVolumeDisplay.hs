@@ -70,9 +70,20 @@ getStatus = catchIOError readStatus quitOnError
 
        undetermined = (0,False)
 
+showStatus :: (Int,Bool) -> String
+showStatus (volume,False) = showVolume volume ++ " 🔈"
+showStatus (volume,True) = showVolume volume ++ " 🔇"
+
+showVolume :: Int -> String
+showVolume = (++ " %") . show
+
+
 spawnPavucontrol :: IO ()
 spawnPavucontrol = do
   void $ forkIO $ callCommand "pavucontrol"
+
+toggleVolume :: IO ()
+toggleVolume = void $ forkIO $ callCommand "pactl set-sink-mute 0 toggle"
 
 main = do
   initGUI
@@ -88,7 +99,7 @@ main = do
           pixbuf <- displayStatus status
           set icon [ 
               statusIconPixbuf := pixbuf,
-              statusIconTooltipText := Just (show (fst status) ++ " %")
+              statusIconTooltipText := Just (showStatus status)
             ]
         loop status
 
@@ -105,7 +116,7 @@ main = do
          widgetShowAll menu
          menuPopup menu $ maybe Nothing (\b' -> Just (b',a)) b
 
-  icon `on` statusIconActivated $ spawnPavucontrol
+  icon `on` statusIconActivated $ toggleVolume
 
 
   mainGUI
