@@ -14,7 +14,6 @@ executable brightness
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
 
   build-depends:       base,
-                       strict,
                        glib,
                        gtk3,
                        cairo,
@@ -28,7 +27,6 @@ executable battery
   other-modules:       FileTools, Utils
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base,
-                       strict,
                        glib,
                        gtk3,
                        cairo,
@@ -42,7 +40,6 @@ executable simple-volume-display
   other-modules:       FileTools, Utils
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base,
-                       strict,
                        glib,
                        gtk3,
                        cairo,

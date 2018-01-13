@@ -2,10 +2,14 @@ module FileTools where
 
 import Control.Exception
 import System.IO
-import qualified System.IO.Strict as SIO
+
+readFileStrict :: String -> IO String
+readFileStrict file = do
+  content <- openFile file ReadMode >>= hGetContents
+  length content `seq` return content
 
 readFileOrEmpty :: String -> IO String
-readFileOrEmpty file = catch (SIO.readFile file) handleIOException
+readFileOrEmpty file = catch (readFileStrict file) handleIOException
   where handleIOException :: IOException -> IO String
         handleIOException = const $ return []
 
